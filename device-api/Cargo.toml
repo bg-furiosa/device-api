@@ -8,6 +8,7 @@ license = { workspace = true }
 homepage = { workspace = true }
 repository = { workspace = true }
 readme = { workspace = true }
+build = "src/hwloc/build.rs"
 
 [features]
 blocking = [] # Enable blocking APIs
@@ -34,6 +35,10 @@ path = "bin/list_proc.rs"
 name = "list_clock_frequency"
 path = "bin/list_clock_frequency.rs"
 
+[[bin]]
+name = "show_topology"
+path = "bin/show_topology.rs"
+
 [dependencies]
 array_tool = "1"
 cli-table = "0.4"
@@ -52,6 +57,8 @@ thiserror = "1"
 tokio = { workspace = true }
 tracing = "0.1"
 tracing-subscriber = { version = "0.3.1", features = ["env-filter", "json"] }
+libc = "0.2.153"
+sscanf = "0.4.1"
 
 [dev-dependencies]
 eyre = "0.6"
