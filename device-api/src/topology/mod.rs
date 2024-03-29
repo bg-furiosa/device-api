@@ -1,9 +1,9 @@
 #![allow(warnings)]
 use std::collections::BTreeMap;
 
-use crate::hwloc::bindgen::*;
-use crate::hwloc::hwloc::{Hwloc, HwlocTopology};
-use crate::hwloc::LinkType::*;
+use crate::topology::bindgen::*;
+use crate::topology::hwloc::{Hwloc, HwlocTopology};
+use crate::topology::LinkType::*;
 use crate::{Device, DeviceResult};
 
 mod bindgen;
@@ -142,10 +142,10 @@ mod tests {
     use std::collections::BTreeMap;
     use std::env;
 
-    use crate::hwloc::bindgen::*;
-    use crate::hwloc::hwloc::{Hwloc, HwlocTopology};
-    use crate::hwloc::LinkType::*;
-    use crate::hwloc::{LinkType, Topology};
+    use crate::topology::bindgen::*;
+    use crate::topology::hwloc::{Hwloc, HwlocTopology};
+    use crate::topology::LinkType::*;
+    use crate::topology::{LinkType, Topology};
     use crate::{Device, DeviceResult};
 
     struct HwlocTopologyMock {
