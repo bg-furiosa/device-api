@@ -95,15 +95,28 @@ fn link_hwloc(install_path: &Path) {
 }
 
 fn gen_hwloc_binding(build_path: &Path) {
-    let header_path = build_path.join("include/hwloc.h");
+    let include_path = build_path.join("include");
+    let hwloc_include_path = include_path.join("hwloc");
+    let hwloc_autogen_include_path = hwloc_include_path.join("autogen");
+
     let bindings_file_path = PathBuf::from(env::var("OUT_DIR").unwrap()).join("hwloc_bindings.rs");
 
-    let bindings = Builder::default()
-        .header(header_path.to_str().unwrap())
+    Builder::default()
+        .header(include_path.join("hwloc.h").to_str().unwrap())
+        .clang_arg(format!("-I{}", include_path.to_str().unwrap()))
+        .clang_arg(format!("-I{}", hwloc_include_path.to_str().unwrap()))
+        .clang_arg(format!(
+            "-I{}",
+            hwloc_autogen_include_path.to_str().unwrap()
+        ))
+        .generate_inline_functions(true)
         .generate()
         .expect("Unable to generate bindings")
         .write_to_file(bindings_file_path.clone())
         .expect("Couldn't write bindings!");
 
-    println!("hwloc bindings generated at {:?}", bindings_file_path.display());
+    println!(
+        "hwloc bindings generated at {:?}",
+        bindings_file_path.display()
+    );
 }
