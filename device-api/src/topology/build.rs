@@ -1,9 +1,9 @@
-extern crate cbindgen;
+extern crate bindgen;
 
 use std::env;
 use std::path::{Path, PathBuf};
 
-use cbindgen::{Builder, Language};
+use bindgen::Builder;
 use flate2::read::GzDecoder;
 use tar::Archive;
 
@@ -95,22 +95,15 @@ fn link_hwloc(install_path: &Path) {
 }
 
 fn gen_hwloc_binding(build_path: &Path) {
-    let include_path = build_path.join("include");
+    let header_path = build_path.join("include/hwloc.h");
     let bindings_file_path = PathBuf::from(env::var("OUT_DIR").unwrap()).join("hwloc_bindings.rs");
-    let config = cbindgen::Config {
-        language: Language::C,
-        ..Default::default()
-    };
 
-    Builder::new()
-        .with_crate(include_path.to_str().unwrap())
-        .with_config(config)
+    let bindings = Builder::default()
+        .header(header_path.to_str().unwrap())
         .generate()
         .expect("Unable to generate bindings")
-        .write_to_file(bindings_file_path.display().to_string());
+        .write_to_file(bindings_file_path.clone())
+        .expect("Couldn't write bindings!");
 
-    println!(
-        "hwloc bindings generated at {:?}",
-        bindings_file_path.display()
-    );
+    println!("hwloc bindings generated at {:?}", bindings_file_path.display());
 }
