@@ -1,12 +1,11 @@
 #![allow(warnings)]
+include!(concat!(env!("OUT_DIR"), "/hwloc_bindings.rs"));
 
 use std::os::raw::c_int;
 use std::ptr;
 
 use lazy_static::lazy_static;
 use regex::Regex;
-
-use crate::topology::bindgen::*;
 
 pub unsafe fn hwloc_get_common_ancestor_obj(
     mut obj1: hwloc_obj_t,

@@ -1,12 +1,11 @@
 #![allow(warnings)]
+include!(concat!(env!("OUT_DIR"), "/hwloc_bindings.rs"));
 use std::collections::BTreeMap;
 
-use crate::topology::bindgen::*;
 use crate::topology::hwloc::{Hwloc, HwlocTopology};
 use crate::topology::LinkType::*;
 use crate::{Device, DeviceResult};
 
-mod bindgen;
 mod build;
 mod helper;
 mod hwloc;
@@ -145,7 +144,6 @@ mod tests {
     use std::collections::BTreeMap;
     use std::env;
 
-    use crate::topology::bindgen::*;
     use crate::topology::hwloc::{Hwloc, HwlocTopology};
     use crate::topology::LinkType::*;
     use crate::topology::{LinkType, Topology};

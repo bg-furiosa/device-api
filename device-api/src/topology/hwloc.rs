@@ -1,6 +1,6 @@
+include!(concat!(env!("OUT_DIR"), "/hwloc_bindings.rs"));
 use std::ffi::CString;
 
-use crate::topology::bindgen::*;
 use crate::topology::helper;
 use crate::{DeviceError, DeviceResult};
 
